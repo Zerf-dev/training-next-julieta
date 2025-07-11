@@ -1,16 +1,11 @@
 'use client';
-import { Counter } from '@/components/Counter';
-import { Title } from '@/components/Title';
-import { CounterProvider } from '@/providers/CounterContext';
-import { Product, getAllProducts } from '@/lib/services/platzi';
 import React, { useEffect, useState } from 'react';
-import ProductCardGridView from '@/components/ProductCardGridView';
-import FilterButton from '@/components/Common/FilterButton';
-import ViewTypeButton from '@/components/Common/ViewTypeButton';
+import ProductCardListView from '@/components/ProductCardListView';
+import { Product, getAllProducts } from '@/lib/services/platzi';
 
-export default function HomePage() {
+export default function ListViewPage() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState<number[]>([]);
 
   useEffect(() => {
@@ -18,8 +13,6 @@ export default function HomePage() {
       try {
         const data = await getAllProducts();
         setProducts(data);
-      } catch (error) {
-        console.error('❌ Error fetching products:', error);
       } finally {
         setLoading(false);
       }
@@ -45,9 +38,7 @@ export default function HomePage() {
     });
   };
 
-  if (loading) {
-    return <p className="text-center p-4">Cargando productos…</p>;
-  }
+  if (loading) return <p className="text-center p-4">Cargando productos…</p>;
 
   const productCards = products.map(prod => ({
     id: prod.id,
@@ -59,20 +50,7 @@ export default function HomePage() {
     onFavoriteToggle: () => toggleFavorite(prod.id)
   }));
 
-  // return (
-  //   <div className="p-4">
-  //     <ProductCardGridView products={productCards} />
-  //   </div>
-  // );
   return (
-    <>
-      <div className="flex justify-end gap-4 mt-4 mb-6 px-4">
-        <ViewTypeButton onClick={() => {}} />
-        <FilterButton onClick={() => {}} />
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-        <ProductCardGridView products={productCards} />
-      </div>
-    </>
+    <ProductCardListView products={productCards} />
   );
-}
+} 

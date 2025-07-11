@@ -21,4 +21,7 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+  body {
+    background-color: #f0f0f0;
+  }
 }

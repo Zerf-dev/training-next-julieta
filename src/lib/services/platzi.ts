@@ -1,0 +1,52 @@
+
+
+export type Category = {
+    id: number;
+    name: string;
+    slug: string;
+    image: string;
+  };
+  
+  export type Product = {
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    slug: string;
+    category: Category;
+    images: string[];
+  };
+  
+  // Fetch all products 
+  export async function getAllProducts(): Promise<Product[]> {
+    const res = await fetch('https://api.escuelajs.co/api/v1/products');
+    if (!res.ok) throw new Error(`Error al cargar productos (${res.status})`);
+    return res.json();
+  }
+  
+  // Fetch one product by ID
+  export async function getProductById(id: number): Promise<Product> {
+    const res = await fetch(`https://fakeapi.platzi.com/en/rest/products/${id}`);
+    if (!res.ok) throw new Error(`Producto ${id} no encontrado (${res.status})`);
+    return res.json();
+  }
+  
+  // Fetch one product by slug
+  export async function getProductBySlug(slug: string): Promise<Product> {
+    const res = await fetch(
+      `https://fakeapi.platzi.com/en/rest/products/slug/${slug}`
+    );
+    if (!res.ok)
+      throw new Error(`Producto slug=${slug} no encontrado (${res.status})`);
+    return res.json();
+  }
+  
+  // Fetch all categories
+  export async function getAllCategories(): Promise<Category[]> {
+    const res = await fetch(
+      'https://fakeapi.platzi.com/en/rest/products/categories'
+    );
+    if (!res.ok) throw new Error(`Error al cargar categorías (${res.status})`);
+    return res.json();
+  }
+  

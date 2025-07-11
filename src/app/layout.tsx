@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 import clsx from 'clsx';
+import FilterButton from '@/components/Common/FilterButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,12 +15,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={clsx(inter.className, 'bg-zinc-900')}>
-        <Providers>
-          <main className="min-h-screen flex flex-col items-center justify-center w-full bg-linear-to-tr from-zerf-contrast via-zerf/90 to-zerf text-white gap-4">
-            {children}
-          </main>
-        </Providers>
+      <body className="bg-white min-h-screen">
+        <header className="w-full py-8 flex justify-center">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-light text-black">StyleSage</h1>
+        </header>
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );
