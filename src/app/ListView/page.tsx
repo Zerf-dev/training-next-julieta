@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import ProductCardListView from '@/components/ProductCardListView';
-import { Product, getAllProducts } from '@/lib/services/platzi';
+import { Product, getAllProducts, getAllCategories } from '@/lib/services/platzi';
 import FilterButton from '@/components/Common/FilterButton';
 import ViewTypeButton from '@/components/Common/ViewTypeButton';
 
@@ -9,6 +9,9 @@ export default function ListViewPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [categories, setCategories] = useState([]);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -20,6 +23,14 @@ export default function ListViewPage() {
       }
     }
     load();
+  }, []);
+
+  useEffect(() => {
+    async function loadCategories() {
+      const data = await getAllCategories();
+      setCategories(data);
+    }
+    loadCategories();
   }, []);
 
   useEffect(() => {
@@ -54,11 +65,25 @@ export default function ListViewPage() {
 
   return (
     <>
-    <div className="flex justify-end gap-4 mt-4 mb-6 px-4">
-        <ViewTypeButton onClick={() => {}} />
-        <FilterButton onClick={() => {}} />
+      <div className="flex justify-end gap-4 mt-4 mb-6 px-4">
+        <ViewTypeButton view="list" onClick={() => {}} />
+        <FilterButton onClick={() => setFilterOpen(open => !open)} />
       </div>
-    <ProductCardListView products={productCards} />
+      {filterOpen && (
+        <div className="flex justify-end px-4 mb-4">
+          <select
+            value={selectedCategory || ''}
+            onChange={e => setSelectedCategory(Number(e.target.value))}
+            className="border rounded px-3 py-2"
+          >
+            <option value="">All categories</option>
+            {categories.map((cat: any) => (
+              <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+          </select>
+        </div>
+      )}
+      <ProductCardListView products={productCards} />
     </>
   );
 } 

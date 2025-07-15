@@ -40,7 +40,7 @@ export default function FavoritesViewPage() {
 
   if (loading) return <p className="text-center p-4">Cargando productos…</p>;
 
-  // Filtrar solo los favoritos
+
   const favoriteProducts = products.filter(prod => favorites.includes(prod.id));
   const productCards = favoriteProducts.map(prod => ({
     id: prod.id,
