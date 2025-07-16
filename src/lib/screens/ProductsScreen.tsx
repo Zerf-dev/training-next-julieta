@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Product } from "@/lib/types/product";
 import { useFavoriteProducts } from "@/lib/hooks/useFavoriteProducts";
-import ViewTypeButton from "@/components/Common/ViewTypeButton/ViewTypeButton";
+import ViewTypeButton from "@/components/Common/ViewTypeButton";
 import { GridViewScreen } from "./GridViewScreen";
 import { ListViewScreen } from "./ListViewScreen";
 import { ViewType } from "@/lib/types/viewType";
@@ -18,7 +18,6 @@ export function ProductsScreen({ products, viewType = DEFAULT_VIEW }: Props) {
   const [currentView, setCurrentView] = useState<ViewType>(viewType);
   const { favorites, toggleFavorite, favoriteProducts } = useFavoriteProducts(products);
 
-  // Decide qué productos mostrar según la vista
   const productsToShow =
     currentView === "favorites" ? favoriteProducts : products;
 

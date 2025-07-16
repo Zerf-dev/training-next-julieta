@@ -4,4 +4,6 @@ export type Product = {
     description: string;
     price: number;
     images: string[];
+    sizes?: string[]; 
+    isFavorite?: boolean;
   };

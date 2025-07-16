@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ProductCardListView from '@/components/ProductCardListView';
 import { Product, getAllProducts, getAllCategories } from '@/lib/services/platzi';
 import FilterButton from '@/components/Common/FilterButton';
-import ViewTypeButton from '@/components/Common/ViewTypeButton/ViewTypeButton';
+import ViewTypeButton from '@/components/Common/ViewTypeButton';
 
 export default function ListViewPage() {
   const [products, setProducts] = useState<Product[]>([]);

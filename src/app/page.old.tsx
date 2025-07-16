@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import ProductCardGridView from '@/components/ProductCardGridView';
 import ProductCardListView from '@/components/ProductCardListView';
 import FilterButton from '@/components/Common/FilterButton';
-import ViewTypeButton from '@/components/Common/ViewTypeButton/ViewTypeButton';
+import ViewTypeButton from '@/components/Common/ViewTypeButton';
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);

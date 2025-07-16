@@ -9,7 +9,7 @@ export function useGetProducts(page = 1) {
 
   useEffect(() => {
     setLoading(true);
-    getAllProducts(page) // Modifica tu service para aceptar página si es necesario
+    getAllProducts()
       .then(data => setProducts(data))
       .catch(() => setError("Error fetching products"))
       .finally(() => setLoading(false));

@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Product } from "@/lib/types/product";
 
-export function useFavoriteProducts(products: Product[]) {
+export function useFavoriteProducts(products: Product[] = []) { 
   const [favorites, setFavorites] = useState<number[]>([]);
-
 
   useEffect(() => {
     const stored = localStorage.getItem("favorites");
@@ -24,8 +23,6 @@ export function useFavoriteProducts(products: Product[]) {
     });
   };
 
-
   const favoriteProducts = products.filter(prod => favorites.includes(prod.id));
-
   return { favoriteProducts, favorites, toggleFavorite };
 }
