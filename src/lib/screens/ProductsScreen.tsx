@@ -6,6 +6,7 @@ import ViewTypeButton from "@/components/Common/ViewTypeButton";
 import { GridViewScreen } from "./GridViewScreen";
 import { ListViewScreen } from "./ListViewScreen";
 import { ViewType } from "@/lib/types/viewType";
+import FilterButton from "@/components/Common/FilterButton/index";
 
 const DEFAULT_VIEW: ViewType = "grid";
 
@@ -23,7 +24,10 @@ export function ProductsScreen({ products, viewType = DEFAULT_VIEW }: Props) {
 
   return (
     <div>
-      <ViewTypeButton view={currentView} onChange={setCurrentView} />
+      <div className="flex items-center justify-end pr-6 mb-6 mt-4 gap-x-4">
+       <ViewTypeButton view={currentView} onChange={setCurrentView} />
+       <FilterButton />
+      </div>
       {currentView === "grid" && (
         <GridViewScreen
           products={productsToShow}

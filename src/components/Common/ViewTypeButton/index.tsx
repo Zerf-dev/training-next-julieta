@@ -52,7 +52,7 @@ export default function ViewTypeButton({ view, onChange }: ViewTypeButtonProps) 
     <button
       type="button"
       onClick={handleClick}
-      className="flex items-center justify-center w-16 h-16 rounded-full bg-gray-100"
+      className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100"
       aria-label="Cambiar tipo de vista"
     >
       {icons[view]}
