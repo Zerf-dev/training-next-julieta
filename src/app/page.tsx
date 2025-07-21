@@ -1,12 +1,46 @@
-import { Counter } from '@/components/Counter';
-import { Title } from '@/components/Title';
-import { CounterProvider } from '@/providers/CounterContext';
+import { ProductsScreen } from "@/lib/screens/ProductsScreen";
+import { VIEWS, ViewType } from "@/lib/types/viewType";
+import { getAllProducts, getProductsByCategory, getAllCategories, getProductsByPage } from '@/lib/services/platzi';
 
-export default function HomePage() {
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    view?: string;
+    category?: string;
+    page?: string;
+    limit?: string;
+  }>;
+}) {
+  const {
+    view: viewParam,
+    category: categoryParam,
+    page: pageParam,
+    limit: limitParam,
+  } = await searchParams;
+
+  const viewType: ViewType = viewParam && VIEWS.includes(viewParam as ViewType)
+    ? (viewParam as ViewType)
+    : "grid";
+
+  const categoryId = categoryParam ? Number(categoryParam) : undefined;
+  const currentPage = pageParam ? Number(pageParam) : 1;
+  const pageLimit  = limitParam ? Number(limitParam) : 6;
+
+  const products = await getProductsByPage(currentPage, pageLimit, categoryId);
+  const categories = await getAllCategories();
+
   return (
-    <CounterProvider count={0}>
-      <Title>NextJS React Training</Title>
-      <Counter />
-    </CounterProvider>
+    <ProductsScreen
+      products={products}
+      viewType={viewType}
+      categories={categories}
+      selectedCategoryId={categoryId}
+      currentPage={currentPage}
+      pageLimit={pageLimit}
+    />
   );
 }
+
+
