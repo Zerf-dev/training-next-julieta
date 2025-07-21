@@ -1,11 +1,11 @@
 import React from 'react';
 
-const VIEWS = ['grid', 'list', 'fullgrid', 'favorites'] as const;
-type ViewType = typeof VIEWS[number];
+const VIEWS = ['grid', 'list', 'fullgrid', 'favorites'];
+// type ViewType = typeof VIEWS[number];
 
 interface ViewTypeButtonProps {
-  view: ViewType;
-  onChange: (nextView: ViewType) => void;
+  view: string;
+  onChange: (nextView: string) => void;
 }
 
 export default function ViewTypeButton({ view, onChange }: ViewTypeButtonProps) {
@@ -55,7 +55,7 @@ export default function ViewTypeButton({ view, onChange }: ViewTypeButtonProps) 
       className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100"
       aria-label="Cambiar tipo de vista"
     >
-      {icons[view]}
+      {icons[view as keyof typeof icons] ?? icons.grid }
     </button>
   );
 } 

@@ -4,26 +4,29 @@ import { Product } from "@/lib/types/product";
 import { Category } from "@/lib/types/category";
 import ProductImage from "@/components/Common/ProductImage";
 import FavoritesButton from "@/components/Common/FavoritesButton";
+import clsx from "clsx";
 
 type Props = {
   products: Product[];
   columns: number;
-  onlyFavorites?: boolean;
-  categories?: Category[];
+  loading?: boolean;
+  error?: string | null;
 };
 
-export function GridViewScreen({ products, columns, onlyFavorites = false, categories }: Props) {
-  const { favoriteProducts, favorites, toggleFavorite } = useFavoriteProducts(products);
-
-
+export function GridViewScreen({ products, columns, loading, error }: Props) {
+  // console.log("products to show: ", products); 
+  
+  const gridClasses = clsx(
+    'grid gap-4',
+    columns === 1
+      ? 'grid-cols-1'
+      : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-3'
+  );
+  
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gap: 16,
-      }}
-    >
+    <div className={gridClasses}>
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
       {products.map(product => (
         <article
           key={product.id}
@@ -35,7 +38,7 @@ export function GridViewScreen({ products, columns, onlyFavorites = false, categ
           </div>
           <div className="mt-4 flex-1 flex flex-col">
             <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1">{product.title}</h2>
-            <p className="text-xs sm:text-sm md:text-base text-gray-500 mb-2 overflow-hidden" style={{maxHeight: '3.6em'}}>
+            <p className="text-xs sm:text-sm md:text-base text-gray-500 mb-2 overflow-hidden line-clamp-2" style={{maxHeight: '3.6em'}}>
               {product.description}
             </p>
             <span className="text-lg sm:text-xl md:text-2xl font-bold text-orange-600 mt-auto">${product.price}</span>

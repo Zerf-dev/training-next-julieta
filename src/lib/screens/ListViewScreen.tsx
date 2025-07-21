@@ -8,12 +8,15 @@ import FavoritesButton from "@/components/Common/FavoritesButton";
 type Props = {
   products: Product[];
   categories?: Category[];
+  loading?: boolean;
+  error?: string | null;
 };
 
-export function ListViewScreen({ products, categories }: Props) {
-  const { favorites, toggleFavorite } = useFavoriteProducts(products);
+export function ListViewScreen({ products, categories, loading, error }: Props) {
   return (
       <div className="flex flex-col gap-3 sm:gap-4 p-2 sm:p-4">
+        {loading && <p>Loading...</p>}
+        {error && <p className="text-red-500">{error}</p>}
         {products.map(product => {
           const availableSizes = product.sizes ?? ['S', 'M', 'L'];
 
