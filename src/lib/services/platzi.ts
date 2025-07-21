@@ -43,18 +43,8 @@ import { Category } from '@/lib/types/category';
   
 
   export async function getProductById(id: number): Promise<Product> {
-    const res = await fetch(`https://fakeapi.platzi.com/en/rest/products/${id}`);
+    const res = await fetch(`https://api.escuelajs.co/api/v1/products/${id}`);
     if (!res.ok) throw new Error(`Producto ${id} no encontrado (${res.status})`);
-    return res.json();
-  }
-  
-
-  export async function getProductBySlug(slug: string): Promise<Product> {
-    const res = await fetch(
-      `https://fakeapi.platzi.com/en/rest/products/slug/${slug}`
-    );
-    if (!res.ok)
-      throw new Error(`Producto slug=${slug} no encontrado (${res.status})`);
     return res.json();
   }
   

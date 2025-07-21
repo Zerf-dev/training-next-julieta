@@ -10,9 +10,10 @@ type Props = {
   categories?: Category[];
   loading?: boolean;
   error?: string | null;
+  onCardClick: (id: number) => void;
 };
 
-export function ListViewScreen({ products, categories, loading, error }: Props) {
+export function ListViewScreen({ products, categories, loading, error, onCardClick }: Props) {
   return (
       <div className="flex flex-col gap-3 sm:gap-4 p-2 sm:p-4">
         {loading && <p>Loading...</p>}
@@ -23,6 +24,7 @@ export function ListViewScreen({ products, categories, loading, error }: Props) 
           return (
             <div
               key={product.id}
+              onClick={() => onCardClick(product.id)}
               className="relative flex items-center gap-4 bg-white rounded-2xl p-4"
             >
               <div className="absolute top-2 right-2 z-10">

@@ -11,11 +11,10 @@ type Props = {
   columns: number;
   loading?: boolean;
   error?: string | null;
+  onCardClick: (id: number) => void;
 };
 
-export function GridViewScreen({ products, columns, loading, error }: Props) {
-  // console.log("products to show: ", products); 
-  
+export function GridViewScreen({ products, columns, loading, error, onCardClick }: Props) {
   const gridClasses = clsx(
     'grid gap-4',
     columns === 1
@@ -30,6 +29,7 @@ export function GridViewScreen({ products, columns, loading, error }: Props) {
       {products.map(product => (
         <article
           key={product.id}
+          onClick={() => onCardClick(product.id)}
           className="bg-white rounded-2xl p-2 sm:p-4 flex flex-col h-full"
         >
           <div className="relative overflow-hidden rounded-xl aspect-[3/4]">

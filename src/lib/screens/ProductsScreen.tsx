@@ -11,6 +11,8 @@ import FilterButton from "@/components/Common/FilterButton/index";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import {useGetProductById} from "@/lib/hooks/useGetProductById";
+import  SingleProductViewScreen  from "./SingleProductViewScreen";
 
 const DEFAULT_VIEW: ViewType = "grid";
 const DEFAULT_TOTAL_PAGES = 5;
@@ -44,6 +46,7 @@ export function ProductsScreen({
   const view = searchParams.get('view') || DEFAULT_VIEW 
   const selectedCategory = searchParams.get('category') || null;  
   const params = new URLSearchParams(searchParams.toString())
+  const [singleId, setSingleId] = useState<number | null>(null);
   
   const handleSelectView = (nextView : string) => {
     params.set('view', nextView) ; 
@@ -56,6 +59,19 @@ export function ProductsScreen({
     params.set('page', '1') ; 
     router.push(`/?${params.toString()}`) ;
     setFilterOpen(false) ; 
+  }
+  const { product, loading, error } = useGetProductById(singleId);
+  const openDetail = (id: number) => setSingleId(id);
+  if (singleId != null) {
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error loading product details.</div>;
+      return (
+        <SingleProductViewScreen
+          product={product!}
+          onBack={() => setSingleId(null)}
+          onToggleFavorite={toggleFavorite}
+        />
+      );
   }
 
   const baseProducts =
@@ -71,13 +87,10 @@ export function ProductsScreen({
   const buildHref = (page: number) => {
     const qs: string[] = [];
     qs.push(`page=${page}`);
-    // si quieres mantener el tamaño de página
     qs.push(`limit=${pageLimit}`);
-    // si tienes distintas vistas (grid/list/favorites)
     if (viewType) {
       qs.push(`view=${viewType}`);
     }
-    // si está filtrada por categoría
     if (selectedCategoryId != null) {
       qs.push(`category=${selectedCategoryId}`);
     }
@@ -132,23 +145,27 @@ export function ProductsScreen({
         <GridViewScreen
           products={productsToShow}
           columns={3}
+          onCardClick={openDetail}
         />
       )}
       {view === "list" && (
         <ListViewScreen
           products={productsToShow}
+          onCardClick={openDetail}
         />
       )}
       {view === "fullgrid" && (
         <GridViewScreen
           products={productsToShow}
           columns={1}
+          onCardClick={openDetail}
         />
       )}
       {view === "favorites" && (
         <GridViewScreen
           products={productsToShow}
           columns={3}
+          onCardClick={openDetail}
         />
       )}
       <nav className="flex items-center justify-center space-x-3 my-8">
