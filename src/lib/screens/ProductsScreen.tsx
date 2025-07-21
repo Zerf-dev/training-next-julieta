@@ -65,8 +65,8 @@ export function ProductsScreen({
     ? baseProducts.filter((p) => p.category.id.toString() === selectedCategory)
     : baseProducts
 
-  const hasPrev = currentPage > 1 ; 
-  const hasNext = productsToShow.length === pageLimit ;
+  const selectedCategoryName = categories.find(
+    (c) => c.id.toString() === selectedCategory) ?.name;
 
   const buildHref = (page: number) => {
     const qs: string[] = [];
@@ -84,7 +84,17 @@ export function ProductsScreen({
     return `?${qs.join('&')}`;
   };
 
-  
+  const filters = [];
+  if (selectedCategoryId) {
+    filters.push({
+      label: selectedCategoryName,
+      onRemove: () => {
+        params.delete('category');
+        params.set('page', '1');
+        router.push(`/?${params.toString()}`);
+      }
+    });
+  }
 
   return (
     <div>
@@ -99,7 +109,25 @@ export function ProductsScreen({
             categories={categories}
             onSelect={handleSelectCategory}
         />
-      </div>
+    </div>
+    {filters.length > 0 && (
+    <div className="flex flex-wrap gap-2 mb-6 px-6">
+      {filters.map(({ label, onRemove }) => (
+        <span
+          key={label}
+          className="flex items-center space-x-2 bg-white border border-gray-200 rounded-full px-4 py-1 text-sm text-gray-800"
+        >
+          <span>{label}</span>
+          <button
+            onClick={onRemove}
+            className="text-gray-500 hover:text-gray-700"
+          >
+            &times;
+          </button>
+        </span>
+      ))}
+    </div>
+      )}
       {view === "grid" && (
         <GridViewScreen
           products={productsToShow}

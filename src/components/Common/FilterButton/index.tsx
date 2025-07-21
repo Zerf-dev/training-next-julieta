@@ -1,6 +1,7 @@
 import React from 'react';
 import { Category } from '@/lib/types/category'
 import { Suspense } from "react";
+import { Funnel } from 'lucide-react';
 
 interface FilterButtonProps {
   open: boolean
@@ -24,18 +25,10 @@ export default function FilterButton({
       <button
         type="button"
         onClick={onToggle}
-        className="flex items-center justify-center w-16 h-16 rounded-full bg-gray-100"
+        className=" w-8 h-8  sm:w-10 sm:h-10 md:w-16 md:h-16 bg-gray-100 rounded-full flex items-center justify-center" 
         aria-label="Filtrar"
       >
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path
-            d="M8 10H24M12 16H20M14.6667 22H17.3333"
-            stroke="black"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <Funnel className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7 text-black" />
       </button>
 
       {open && (

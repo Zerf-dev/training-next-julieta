@@ -4,17 +4,29 @@ import { getAllProducts, getProductsByCategory, getAllCategories, getProductsByP
 
 
 export default async function Page({
-  searchParams, 
-}: { searchParams: { view?: string; category?: string; page?: string; limit?: string } }) {
+  searchParams,
+}: {
+  searchParams: Promise<{
+    view?: string;
+    category?: string;
+    page?: string;
+    limit?: string;
+  }>;
+}) {
+  const {
+    view: viewParam,
+    category: categoryParam,
+    page: pageParam,
+    limit: limitParam,
+  } = await searchParams;
 
-  const { view: viewParam, category: categoryParam, page: pageParam, limit: limitParam } = searchParams;
-  const viewType: ViewType = VIEWS.includes(viewParam as ViewType)
+  const viewType: ViewType = viewParam && VIEWS.includes(viewParam as ViewType)
     ? (viewParam as ViewType)
-    : 'grid';
+    : "grid";
 
   const categoryId = categoryParam ? Number(categoryParam) : undefined;
   const currentPage = pageParam ? Number(pageParam) : 1;
-  const pageLimit  = limitParam ? Number(limitParam) : 9;
+  const pageLimit  = limitParam ? Number(limitParam) : 6;
 
   const products = await getProductsByPage(currentPage, pageLimit, categoryId);
   const categories = await getAllCategories();

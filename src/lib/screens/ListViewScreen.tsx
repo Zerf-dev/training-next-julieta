@@ -23,20 +23,20 @@ export function ListViewScreen({ products, categories, loading, error }: Props) 
           return (
             <div
               key={product.id}
-              className="relative flex items-center gap-4 bg-white rounded-2xl shadow-md p-4"
+              className="relative flex items-center gap-4 bg-white rounded-2xl p-4"
             >
               <div className="absolute top-2 right-2 z-10">
                 <FavoritesButton id={product.id} className="absolute top-2 right-2 text-red-500"
                 />
               </div>
 
-              <div className="w-24 h-24 flex-shrink-0">
+              <div className="w-24 flex-shrink-0">
                 <ProductImage src={product.images[0]} alt={product.title} />
               </div>
 
-              <div className="flex-1 flex flex-col justify-between h-full">
-                <h2 className="text-lg font-semibold">{product.title}</h2>
-                <p className="text-gray-500 text-base line-clamp-1">{product.description}</p>
+              <div className="flex-1 flex flex-col justify-between h-full pr-10">
+                <h2 className="text-lg">{product.title}</h2>
+                <p className="text-gray-400 text-base line-clamp-1">{product.description}</p>
 
                 <div className="flex items-center gap-2 mt-2">
                   <span className="text-gray-400 text-base">Size</span>
