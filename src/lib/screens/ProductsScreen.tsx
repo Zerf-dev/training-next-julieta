@@ -54,7 +54,7 @@ export function ProductsScreen({
   }
 
   const handleSelectCategory = (cat: Category) => {
-    console.log('Seleccionaste:', cat.id)
+    console.log('Category selected:', cat.id)
     params.set('category', cat.id.toString()) ;
     params.set('page', '1') ; 
     router.push(`/?${params.toString()}`) ;

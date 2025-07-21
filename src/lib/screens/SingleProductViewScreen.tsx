@@ -28,11 +28,11 @@ export default function SingleProductViewScreen({
           className="flex items-center text-gray-700 hover:text-gray-900"
         >
           <ChevronLeft size={24} />
-          <span className="ml-2 text-base">Volver</span>
+          <span className="ml-2 text-base">Back</span>
         </button>
         <button
           onClick={() => product && onToggleFavorite(product.id)}
-          aria-label="Alternar favorito"
+          aria-label="Toggle favorite"
           className="text-gray-700 hover:text-red-500"
         >
           <Heart size={24} />
@@ -40,7 +40,7 @@ export default function SingleProductViewScreen({
       </header>
 
       {loading && (
-        <div className="p-4 text-center text-gray-500">Cargando producto...</div>
+        <div className="p-4 text-center text-gray-500">Loading product details...</div>
       )}
       {error && (
         <div className="p-4 text-center text-red-500">Error: {error}</div>
