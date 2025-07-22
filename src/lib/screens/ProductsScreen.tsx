@@ -174,10 +174,10 @@ export function ProductsScreen({
           className={`
             flex items-center justify-center
             w-10 h-10
-            rounded-full border-2
+            rounded-full border-1
             ${currentPage > 1
-              ? 'border-gray-300 text-gray-500 hover:bg-gray-100'
-              : 'border-gray-200 text-gray-200 cursor-not-allowed'}
+              ? 'border-[#F5F5F5] text-[#8A8A8A] hover:bg-[#F5F5F5]'
+              : 'border-[#F5F5F5] text-[#F5F5F5] cursor-not-allowed'}
           `}
         >
           <ChevronLeft size={16} />
@@ -192,10 +192,10 @@ export function ProductsScreen({
               className={`
                 w-10 h-10
                 flex items-center justify-center
-                rounded-full border-2
+                rounded-full border-1
                 ${isActive
-                  ? 'bg-[#DF4726] border-[#DF4726] text-white'
-                  : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-100'}
+                  ? 'bg-[#F93C00] border-[#F93C00] text-white'
+                  : 'bg-white border-[#F5F5F5] text-[#8A8A8A] hover:bg-[#F5F5F5]'}
               `}
             >
               {p}
@@ -208,10 +208,10 @@ export function ProductsScreen({
           className={`
             flex items-center justify-center
             w-10 h-10
-            rounded-full border-2
+            rounded-full border-1
             ${currentPage < totalPages
-              ? 'border-gray-300 text-gray-500 hover:bg-gray-100'
-              : 'border-gray-200 text-gray-200 cursor-not-allowed'}
+              ? 'border-[#F5F5F5] text-[#8A8A8A] hover:bg-[#F5F5F5]'
+              : 'border-[#F5F5F5] text-[#F5F5F5] cursor-not-allowed'}
           `}
         >
           <ChevronRight size={16} />
